@@ -1,15 +1,22 @@
 export default {
-  preset: "ts-jest",
   testEnvironment: "jsdom",
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
+
+  moduleFileExtensions: ["js", "jsx", "ts", "tsx"],
+
   transform: {
-    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
+    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
   },
-  moduleNameMapper: {
-    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-  },
+
+  // Transform ESM node_modules
   transformIgnorePatterns: [
-    "/node_modules/(?!shadcn-ui|some-other-esm-package)/",
+    "node_modules/(?!(uuid|shadcn-ui)/)"
   ],
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+
+  moduleNameMapper: {
+    "\\.(css|scss|sass|less)$": "identity-obj-proxy",
+    // Map uuid to a manual mock so Jest tests don't need to transform the package ESM build.
+    "^uuid$": "<rootDir>/__mocks__/uuid.js"
+  },
+
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"]
 };

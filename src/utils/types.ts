@@ -1,3 +1,5 @@
+/********************* Models ************************************ */
+
 interface ICheckBoxNode {
     id: number;
     label: string;
@@ -5,6 +7,34 @@ interface ICheckBoxNode {
     indeterminate?: boolean;
     children: ICheckBoxNode[];
 }
+
+interface DragItem {
+    id: number;
+    heading: string,
+    content: string;
+}
+
+interface SideNavItem {
+    title: string;
+    url: string;
+    icon: React.ComponentType<any>;
+}
+
+interface KanbanColumn {
+    id: string;
+    title: string;
+    items: KanbanColumnItem[];
+}
+
+interface KanbanColumnItem {
+    id: string;
+    heading: string,
+    content: string;
+}
+
+
+
+/********************* Props ************************************ */
 
 interface ThemeContextProp {
     theme: ThemeMode,
@@ -16,12 +46,6 @@ interface DragContainerProps {
     items: DragItem[];
 }
 
-interface DragItem {
-    id: number;
-    heading: string,
-    content: string;
-}
-
 interface DragItemProps {
     isDraggable: boolean;
     item: DragItem;
@@ -30,6 +54,37 @@ interface DragItemProps {
     onDragOver: (e: React.DragEvent<HTMLDivElement>, item: DragItem, position: number) => void;
 }
 
+interface KanbanContextProp {
+    title: string;
+    children?: React.ReactNode;
+    columns: KanbanColumn[];
+    onDragStart?: (e: React.DragEvent<HTMLDivElement>, sourceId: string) => void;
+    onDrop?: (e: React.DragEvent<HTMLDivElement>, sourceId: string) => void;
+    onDragOver?: (e: React.DragEvent<HTMLDivElement>) => void;
+}
+
+interface KanbanProviderProps {
+    title: string;
+    children?: React.ReactNode;
+    columns: KanbanColumn[];
+}
+
+interface KanbanColumnProps {
+    column: KanbanColumn;
+}
+
+interface Endpoint {
+    sourceId: string;
+    destinationId: string;
+}
+
+interface KanbanColumnItemProps {
+    columnId?: string;
+    id: string;
+    title: string;
+    content: string;
+    onDragStart: (e: React.DragEvent<HTMLDivElement>, sourceId: string) => void;
+}
 
 /********************* Enums************************************ */
 
@@ -40,10 +95,13 @@ enum ThemeMode {
 
 
 export {
-    ICheckBoxNode,
-    ThemeMode,
-    ThemeContextProp,
     DragContainerProps,
     DragItem,
-    DragItemProps
+    DragItemProps,
+    Endpoint, ICheckBoxNode,
+    KanbanColumn, KanbanColumnItem, KanbanColumnItemProps,
+    KanbanColumnProps, KanbanContextProp,
+    KanbanProviderProps, SideNavItem,
+    ThemeContextProp, ThemeMode
 };
+

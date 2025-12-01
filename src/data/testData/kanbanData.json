@@ -1,0 +1,46 @@
+[
+    {
+      "id": "col-1",
+      "title": "To Do",
+      "items": [
+        {
+          "id": "task-1",
+          "heading": "Design Homepage",
+          "content": "Create wireframes and UI layout for the homepage."
+        },
+        {
+          "id": "task-2",
+          "heading": "API Integration",
+          "content": "Plan how frontend will connect with backend."
+        }
+      ]
+    },
+    {
+      "id": "col-2",
+      "title": "In Progress",
+      "items": [
+        {
+          "id": "task-3",
+          "heading": "Develop Login Flow",
+          "content": "Implement JWT authentication and login screen."
+        }
+      ]
+    },
+    {
+      "id": "col-3",
+      "title": "Completed",
+      "items": [
+        {
+          "id": "task-4",
+          "heading": "Project Setup",
+          "content": "Initialized Vite + React + Tailwind project."
+        },
+        {
+          "id": "task-5",
+          "heading": "Create Header Component",
+          "content": "Completed responsive header with navigation."
+        }
+      ]
+    }
+  ]
+

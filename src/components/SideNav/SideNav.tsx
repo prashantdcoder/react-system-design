@@ -13,25 +13,10 @@ import {
   SidebarMenuItem,
 } from "../ui/sidebar";
 import React from "react";
+import { sideNavItems } from "../../data/appData";
 
 const SideNav: React.FC = () => {
-  const items = [
-    {
-      title: "Checkbox Problem",
-      url: "/",
-      icon: ClipboardCheck,
-    },
-    {
-      title: "Theme Change Problem",
-      url: "/theme-problem",
-      icon: ClipboardCheck,
-    },
-    {
-      title: "Drag and Drop List Problem",
-      url: "/drag-list-problem",
-      icon: ClipboardCheck,
-    }
-  ];
+
   return (
     <Sidebar>
       <SidebarHeader />
@@ -51,7 +36,7 @@ const SideNav: React.FC = () => {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {sideNavItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>

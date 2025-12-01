@@ -1,4 +1,6 @@
-import { DragItem, ICheckBoxNode } from "../utils/types";
+import { ClipboardCheck } from "lucide-react";
+import { generateUniqueId } from "../utils/appUtils";
+import { DragItem, ICheckBoxNode, KanbanColumn, SideNavItem } from "../utils/types";
 
 const shoppingList: ICheckBoxNode[] = [
     {
@@ -486,4 +488,100 @@ const dragAndDropList: DragItem[] = [
     }
 ]
 
-export { permissions, shoppingList, groceries, userManagement, printers, dragAndDropList };
+const sideNavItems: SideNavItem[] = [
+    {
+        title: "Checkbox Problem",
+        url: "/",
+        icon: ClipboardCheck,
+    },
+    {
+        title: "Theme Change Problem",
+        url: "/theme-problem",
+        icon: ClipboardCheck,
+    },
+    {
+        title: "Drag and Drop List Problem",
+        url: "/drag-list-problem",
+        icon: ClipboardCheck,
+    },
+    {
+        title: "Kanban Problem",
+        url: "/kanban-problem",
+        icon: ClipboardCheck,
+    }
+];
+
+const kanbanBoardColumns: KanbanColumn[] = [
+    {
+        id: 'todo',
+        title: 'To Do',
+        items: [
+            {
+                id: generateUniqueId(),
+                heading: 'Create Login API',
+                content: 'Design and develop the authentication endpoint with JWT tokens.'
+            },
+            {
+                id: generateUniqueId(),
+                heading: 'Prepare Sprint Report',
+                content: 'Compile tasks completed and pending for this sprint.'
+            },
+            {
+                id: generateUniqueId(),
+                heading: 'Design Dashboard UI',
+                content: 'Create Figma wireframes for the analytics dashboard.'
+            }
+        ]
+    },
+    {
+        id: 'inprogress',
+        title: 'In Progress',
+        items: [
+            {
+                id: generateUniqueId(),
+                heading: 'Fix Payment Failure Bug',
+                content: 'Investigate transaction timeout occurring for UPI payments.'
+            },
+            {
+                id: generateUniqueId(),
+                heading: 'Refactor User Service',
+                content: 'Improve code quality and reduce duplication in user-related APIs.'
+            },
+            {
+                id: generateUniqueId(),
+                heading: 'Write Unit Tests',
+                content: 'Add Jest unit tests for the product module to increase coverage.'
+            }
+        ]
+    },
+    {
+        id: 'completed',
+        title: 'Completed',
+        items: [
+            {
+                id: generateUniqueId(),
+                heading: 'Deploy New Version to Staging',
+                content: 'v2.3.1 deployed successfully for internal QA testing.'
+            },
+            {
+                id: generateUniqueId(),
+                heading: 'Set Up CI/CD Pipeline',
+                content: 'Configured GitHub Actions for automated tests and deployments.'
+            },
+            {
+                id: generateUniqueId(),
+                heading: 'API Documentation Update',
+                content: 'Updated Swagger docs for user and product services.'
+            }
+        ]
+    }
+];
+
+
+export {
+    dragAndDropList,
+    groceries, kanbanBoardColumns, permissions,
+    printers,
+    shoppingList, sideNavItems, userManagement
+};
+
