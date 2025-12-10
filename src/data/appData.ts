@@ -508,6 +508,11 @@ const sideNavItems: SideNavItem[] = [
         title: "Kanban Problem",
         url: "/kanban-problem",
         icon: ClipboardCheck,
+    },
+    {
+        title: "Tic Tac Toe Problem",
+        url: "/tic-tac-toe-problem",
+        icon: ClipboardCheck,
     }
 ];
 

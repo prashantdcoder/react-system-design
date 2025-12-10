@@ -8,6 +8,7 @@ import CheckboxProblemPage from "./pages/CheckboxProblemPage";
 import DragAndDropListProblemPage from "./pages/DragAndDropListProblemPage";
 import KanbanProblemPage from "./pages/KanbanProblemPage";
 import ThemeChangeProblemPage from "./pages/ThemeChangeProblemPage";
+import TicTacToeProblemPage from "./pages/TicTacToeProblemPage";
 
 const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
             <Route path="/theme-problem" element={<ThemeChangeProblemPage />} />
             <Route path="/drag-list-problem" element={<DragAndDropListProblemPage />} />
             <Route path="/kanban-problem" element={<KanbanProblemPage />} />
+            <Route path="/tic-tac-toe-problem" element={<TicTacToeProblemPage />} />
           </Routes>
         </SidebarProvider>
       </ThemeProvider>

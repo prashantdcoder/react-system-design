@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { ClipboardCheck } from "lucide-react";
+import React from "react";
+import { sideNavItems } from "../../data/appData";
 import {
   Sidebar,
   SidebarContent,
@@ -12,8 +13,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "../ui/sidebar";
-import React from "react";
-import { sideNavItems } from "../../data/appData";
 
 const SideNav: React.FC = () => {
 
