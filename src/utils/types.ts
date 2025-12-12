@@ -86,11 +86,27 @@ interface KanbanColumnItemProps {
     onDragStart: (e: React.DragEvent<HTMLDivElement>, sourceId: string) => void;
 }
 
+interface BoardProps {
+    cells: Array<Player | null>;
+    setNextPlayerTurn?: (e: React.MouseEvent<HTMLDivElement>, cellId?: string) => void;
+}
+
+interface CellProps {
+    cellId: string;
+    value: Player | null;
+    setNextPlayerTurn?: (e: React.MouseEvent<HTMLDivElement>, cellId?: string) => void;
+}
+
 /********************* Enums************************************ */
 
 enum ThemeMode {
     LIGHT = "Light",
     DARK = "Dark"
+}
+
+enum Player {
+    X = "X",
+    O = "O"
 }
 
 
@@ -102,6 +118,7 @@ export {
     KanbanColumn, KanbanColumnItem, KanbanColumnItemProps,
     KanbanColumnProps, KanbanContextProp,
     KanbanProviderProps, SideNavItem,
-    ThemeContextProp, ThemeMode
+    ThemeContextProp, ThemeMode, Player, BoardProps,
+    CellProps
 };
 

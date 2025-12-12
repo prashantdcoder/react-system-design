@@ -1,16 +1,23 @@
 import React from 'react';
 import './Cell.css';
+import { CellProps, Player } from '../../../utils/types';
 
-const Cell: React.FC = () => {
+const Cell: React.FC<CellProps> = ({ setNextPlayerTurn, cellId, value }) => {
+    const cssStyle = value === Player.X ? 'tic-tac-toe-cell-x' : value === Player.O ? 'tic-tac-toe-cell-o' : 'tic-tac-toe-cell-empty'; ``
     return (
-        <div className="tic-tac-toe-cell-x
-        cursor-pointer
-        rounded-lg
-        aspect-square
-        bg-white shadow
-        typecard flex
-        items-center
-        justify-center" />
+        <div
+            className={`
+            ${cssStyle}
+            cursor-pointer
+            rounded-lg
+            aspect-square
+            bg-white shadow
+            typecard flex
+            hover:shadow-lg
+            items-center
+            justify-center`}
+            onClick={(e) => setNextPlayerTurn(e, cellId)}
+        />
     )
 }
 
