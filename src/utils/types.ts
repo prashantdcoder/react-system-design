@@ -88,13 +88,13 @@ interface KanbanColumnItemProps {
 
 interface BoardProps {
     cells: (Player | null)[][];
-    setNextPlayerTurn?: (e: React.MouseEvent<HTMLDivElement>, cellId?: string) => void;
+    setNextPlayerTurn?: (e: React.MouseEvent<HTMLDivElement>, cellId: string) => void;
 }
 
 interface CellProps {
     cellId: string;
     value: Player | null;
-    setNextPlayerTurn?: (e: React.MouseEvent<HTMLDivElement>, cellId?: string) => void;
+    setNextPlayerTurn?: (e: React.MouseEvent<HTMLDivElement>, cellId: string) => void;
 }
 
 /********************* Enums************************************ */
