@@ -7,10 +7,19 @@ const Board: React.FC<BoardProps> = ({ cells, setNextPlayerTurn }) => {
     return (
         <div className='board-container gap-3 text-blue-700'>
             {
-                cells.map((item, rowIndex) => {
-                    const cellId: string = `${rowIndex}`;
-                    return (<Cell value={item} cellId={cellId} setNextPlayerTurn={setNextPlayerTurn} key={cellId} />)
-                })
+                cells.map((row, rowIndex) =>
+                    row.map((col, colIndex) => {
+                        const cellId: string = `${rowIndex}-${colIndex}`;
+                        return (
+                            <Cell
+                                value={col}
+                                cellId={cellId}
+                                setNextPlayerTurn={setNextPlayerTurn}
+                                key={cellId}
+                            />
+                        );
+                    })
+                )
             }
         </div>
     )

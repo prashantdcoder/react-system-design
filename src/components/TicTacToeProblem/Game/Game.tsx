@@ -1,116 +1,84 @@
+import { TrophyIcon } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Player } from '../../../utils/types';
+import { Alert, AlertDescription, AlertTitle } from '../../ui/alert';
 import Board from '../Board/Board';
-import { CheckCircle2Icon, TrophyIcon } from 'lucide-react';
-import { Alert, AlertTitle, AlertDescription } from '../../ui/alert';
 
 export const Game: React.FC = () => {
     const [winner, setWinner] = useState<Player | null>(null);
     const [captureMap, setCaptureMap] = useState<Map<string, Player>>(new Map());
-    const [cellArray, setCellArray] = useState<Array<Player | null>>([null, null, null, null, null, null, null, null, null]);
+    const [cellArray, setCellArray] = useState<(Player | null)[][]>([[null, null, null], [null, null, null], [null, null, null]]);
     const [turn, setTurn] = React.useState<Player | null>(null);
 
-    const setNextPlayerTurn = (e: React.MouseEvent<HTMLDivElement>, cellId?: string): void => {
-        if (!cellId || captureMap.size === 9 || winner) {
+    const setNextPlayerTurn = useCallback((e: React.MouseEvent<HTMLDivElement>, cellId?: string): void => {
+        if (captureMap.size === 9 || winner !== null) {
             return;
         }
-
         if (!captureMap.has(cellId)) {
-            const newCaptureMap: Map<string, Player> = new Map(captureMap);
-            newCaptureMap.set(cellId, turn === Player.X ? Player.O : Player.X);
             const turnValue = turn === Player.X ? Player.O : Player.X;
+            const newCaptureMap: Map<string, Player> = new Map(captureMap);
+            newCaptureMap.set(cellId, turnValue);
             const array = [...cellArray];
-            array[parseInt(cellId)] = turnValue;
+            const cellIdSplitter = cellId.split("-");
+            array[parseInt(cellIdSplitter[0])][parseInt(cellIdSplitter[1])] = turnValue;
             setCaptureMap(newCaptureMap);
             setTurn(turnValue);
             setCellArray(array);
         }
-    }
+    }, [cellArray])
 
     useEffect(() => {
         calculateWinner();
     }, [cellArray])
 
     const calculateWinner = useCallback(() => {
-        const rowWinnerMap = isWinnerFromRow();
-        const columnWinnerMap = isWinnerFromColumn();
-        if (rowWinnerMap.size > 0) {
-            decideWinner(rowWinnerMap);
-            return;
-        }
-
-        if (columnWinnerMap.size > 0) {
-            decideWinner(columnWinnerMap);
-            return;
-        }
+        const winningPlayer: Player = calculateWinnerCombination();
+        setWinner(winningPlayer);
     }, [cellArray]);
 
-    const decideWinner = (map: Map<Player, boolean>): void => {
-        const winnerPlayer: Player = Array.from(map.keys())[0];
-        setWinner(winnerPlayer);
-    }
-
-    const isWinnerFromRow = (): Map<Player, boolean> => {
-        const map = new Map<Player, boolean>();
-        for (let i = 0; i < 9; i = i + 3) {
-            let xCount = 0;
-            let oCount = 0;
-
-            for (let j = i; j < i + 3; j++) {
-                const cellValue = cellArray[j];
-                if (cellValue === Player.X) {
-                    xCount++;
-                }
-
-                if (cellValue === Player.O) {
-                    oCount++;
-                }
-
-                if (xCount === 3 || oCount === 3) {
-                    break;
-                }
-            }
-            if (xCount === 3) {
-                map.set(Player.X, true);
-                return map;
-            }
-            if (oCount === 3) {
-                map.set(Player.O, true);
-                return map;
-            }
-        }
-        return map;
-    }
-
-    const isWinnerFromColumn = (): Map<Player, boolean> => {
-        const map = new Map<Player, boolean>();
+    const calculateWinnerCombination = (): Player => {
+        const array = [...cellArray];
+        let winningPlayer = null;
         for (let i = 0; i < 3; i++) {
-            let xCount = 0;
-            let oCount = 0;
+            let rowValue = "";
+            let colValue = "";
+            if (array[0][0] === Player.X && array[1][1] === Player.X && array[2][2] === Player.X) {
+                winningPlayer = Player.X;
+                break;
+            }
+
+            if (array[0][0] === Player.O && array[1][1] === Player.O && array[2][2] === Player.O) {
+                winningPlayer = Player.O;
+                break;
+            }
+
+            if (array[0][2] === Player.X && array[1][1] === Player.X && array[2][0] === Player.X) {
+                winningPlayer = Player.X;
+                break;
+            }
+
+            if (array[0][2] === Player.O && array[1][1] === Player.O && array[2][0] === Player.O) {
+                winningPlayer = Player.O;
+                break;
+            }
+
+
             for (let j = 0; j < 3; j++) {
-                const cellValue = cellArray[i + (j * 3)];
-                if (cellValue === Player.X) {
-                    xCount++;
-                }
-
-                if (cellValue === Player.O) {
-                    oCount++;
-                }
-
-                if (xCount === 3 || oCount === 3) {
-                    break;
-                }
+                rowValue += array[i][j];
+                colValue += array[j][i];
             }
-            if (xCount === 3) {
-                map.set(Player.X, true);
-                return map;
+
+            if (rowValue === "XXX" || colValue === "XXX") {
+                winningPlayer = Player.X
+                break;
             }
-            if (oCount === 3) {
-                map.set(Player.O, true);
-                return map;
+
+            if (rowValue === "OOO" || colValue === "OOO") {
+                winningPlayer = Player.O
+                break;
             }
         }
-        return map;
+        return winningPlayer;
     }
 
 

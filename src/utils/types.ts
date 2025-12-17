@@ -87,7 +87,7 @@ interface KanbanColumnItemProps {
 }
 
 interface BoardProps {
-    cells: Array<Player | null>;
+    cells: (Player | null)[][];
     setNextPlayerTurn?: (e: React.MouseEvent<HTMLDivElement>, cellId?: string) => void;
 }
 
