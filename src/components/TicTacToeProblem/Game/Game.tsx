@@ -1,7 +1,6 @@
-import { TrophyIcon } from 'lucide-react';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Player } from '../../../utils/types';
-import { Alert, AlertDescription, AlertTitle } from '../../ui/alert';
+import Banner from '../Banner/Banner';
 import Board from '../Board/Board';
 
 export const Game: React.FC = () => {
@@ -59,13 +58,7 @@ export const Game: React.FC = () => {
     return (
         <div className='flex flex-col justify-center items-center gap-2 p-5'>
             {
-                gameWinner && <Alert className='w-[50%] bg-green-500 text-amber-50'>
-                    <TrophyIcon color='#fff' />
-                    <AlertTitle>Congratulations!!</AlertTitle>
-                    <AlertDescription>
-                        The winner of Tic Tac Toe Game is player {gameWinner}
-                    </AlertDescription>
-                </Alert>
+                gameWinner && <Banner winner={gameWinner} />
             }
             <Board cells={cellArray} setNextPlayerTurn={setNextPlayerTurn} />
         </div>
