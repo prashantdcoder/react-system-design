@@ -12,8 +12,8 @@ const Banner: React.FC<BannerProps> = ({ winner }) => {
     return (
         <Alert className='w-[50%] bg-green-500 text-amber-50'>
             <TrophyIcon color='#fff' />
-            <AlertTitle>{title}</AlertTitle>
-            <AlertDescription>
+            <AlertTitle data-testid="banner-title">{title}</AlertTitle>
+            <AlertDescription data-testid="banner-description">
                 {description} {winner}
             </AlertDescription>
         </Alert>
