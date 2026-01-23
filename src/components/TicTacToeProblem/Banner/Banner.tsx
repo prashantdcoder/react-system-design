@@ -10,7 +10,7 @@ interface BannerProps {
 const Banner: React.FC<BannerProps> = ({ winner }) => {
     const { title, description } = ticTacToeProblemLocale.banner;
     return (
-        <Alert className='w-[50%] bg-green-500 text-amber-50'>
+        <Alert data-testid="banner-container" className='w-[50%] bg-green-500 text-amber-50'>
             <TrophyIcon color='#fff' />
             <AlertTitle data-testid="banner-title">{title}</AlertTitle>
             <AlertDescription data-testid="banner-description">

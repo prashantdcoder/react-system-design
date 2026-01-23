@@ -56,7 +56,7 @@ export const Game: React.FC = () => {
     }, [cellArray, gameWinner, turn]);
 
     return (
-        <div className='flex flex-col justify-center items-center gap-2 p-5'>
+        <div data-testid="game" className='flex flex-col justify-center items-center gap-2 p-5'>
             {
                 gameWinner && <Banner winner={gameWinner} />
             }
