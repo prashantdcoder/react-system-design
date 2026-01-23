@@ -6,6 +6,7 @@ const Cell: React.FC<CellProps> = ({ setNextPlayerTurn, cellId, value }) => {
     const cssStyle = value === Player.X ? 'tic-tac-toe-cell-x' : value === Player.O ? 'tic-tac-toe-cell-o' : 'tic-tac-toe-cell-empty'; ``
     return (
         <div
+            data-testid={`tic-tac-toe-cell-${cellId}`}
             className={`
             ${cssStyle}
             cursor-pointer
