@@ -3,6 +3,10 @@ import React from "react";
 import Banner from "./Banner";
 import { Player } from "../../../utils/types";
 
+jest.mock("lucide-react", () => ({
+    TrophyIcon: () => <div data-testid="trophy-icon" />,
+}));
+
 describe("Banner Component", () => {
 
     it("should render correctly with given winner", () => {
@@ -18,5 +22,11 @@ describe("Banner Component", () => {
         expect(titleElement.textContent).toBe("Congratulations!");
         expect(descriptionElement).toBeInTheDocument();
         expect(descriptionElement.textContent).toBe("The winner of Tic Tac Toe Game is player  O");
+    });
+
+    it("should render the TrophyIcon", () => {
+        const { getByTestId } = render(<Banner winner={Player.X} />);
+        const trophyIcon = getByTestId("trophy-icon");
+        expect(trophyIcon).toBeInTheDocument();
     });
 });  
