@@ -5,7 +5,7 @@ import './Board.css';
 
 const Board: React.FC<BoardProps> = ({ cells, setNextPlayerTurn }) => {
     return (
-        <div className='board-container gap-3 text-blue-700'>
+        <div data-testid="board" className='board-container gap-3 text-blue-700'>
             {
                 cells.map((row, rowIndex) =>
                     row.map((col, colIndex) => {
