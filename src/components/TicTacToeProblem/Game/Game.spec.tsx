@@ -5,11 +5,6 @@ import { BoardProps, CellProps } from '../../../utils/types';
 
 /**
  * 🧪 Game Component – Test Case Headings
-✅ Rendering & Basic UI
-Should render Game component without crashing
-Should render the Board component
-Should not render Banner initially when there is no winner
-Should render a 3x3 board initially with all empty cells
 
 🎮 Gameplay & Turn Handling
 Should start the game with no player selected initially
@@ -21,13 +16,11 @@ Should update board state after each valid move
 Should not change turn when clicking on an already filled cell
 
 🏆 Winner Calculation & Banner
-Should detect winner when a row is completed
-Should detect winner when a column is completed
-Should detect winner when a diagonal is completed
-Should render Banner when a winner is found
+
+
+
 Should pass correct winner to Banner component
-Should not allow further moves after winner is declared
-Should not change board state after game is finished
+
 
 🔁 State & Re-rendering Behavior
 Should recalculate winner only when board state changes
@@ -53,11 +46,13 @@ Should not recreate setNextPlayerTurn function unnecessarily
 Should prevent unnecessary re-renders of Board using React.memo
 Should not recalculate winner when clicking on already filled cell
  */
-
+const mockCellRender = jest.fn();
 jest.mock('../Banner/Banner', () => {
     return {
         __esModule: true,
-        default: ({ winner }: { winner: string }) => <div data-testid="banner-mock">Winner is: {winner}</div>
+        default: ({ winner }: { winner: string }) => {
+            return <div data-testid="banner-mock">Winner is: {winner}</div>;
+        }
     };
 });
 
@@ -74,6 +69,7 @@ describe(`Game component`, () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
+        mockCellRender.mockClear();
     })
 
     it("should render component correctly", () => {
@@ -174,4 +170,36 @@ describe(`Game component`, () => {
         expect(bannerElement).toBeInTheDocument();
         expect(bannerElement.textContent).toBe("Winner is: X");
     });
+
+    it("should not allow further moves after winner is declared", () => {
+        render(<Game />);
+        const cells = screen.getAllByTestId("cell") as HTMLDivElement[];
+        fireEvent.click(cells[0]); // X
+        fireEvent.click(cells[3]); // O
+        fireEvent.click(cells[1]); // X
+        fireEvent.click(cells[4]); // O
+        fireEvent.click(cells[2]); // X wins
+        const bannerElement = screen.getByTestId("banner-mock") as HTMLDivElement;
+        expect(bannerElement).toBeInTheDocument();
+        expect(bannerElement.textContent).toBe("Winner is: X");
+        fireEvent.click(cells[5]);  // Attempt to click after game over
+        expect(cells[5].getAttribute("data-value")).toBe(""); // Should remain empty
+    });
+
+    xit("should recalculate winner only when board state changes", () => {
+        render(<Game />);
+        const cells = screen.getAllByTestId("cell") as HTMLDivElement[];
+        fireEvent.click(cells[0]); // X
+        fireEvent.click(cells[3]); // O    
+        expect(mockCellRender).toHaveBeenCalledTimes(3); // Winner calculation called 3 times
+    });
+
+    xit("should prevent unnecessary re-renders of Board using React.memo", () => {
+        render(<Game />);
+        const cells = screen.getAllByTestId("cell") as HTMLDivElement[];
+        fireEvent.click(cells[0]); // X
+        fireEvent.click(cells[0]); // Click same cell again
+        expect(mockCellRender).toHaveBeenCalledTimes(1); // Board should not re-render on invalid move
+    });
+
 });

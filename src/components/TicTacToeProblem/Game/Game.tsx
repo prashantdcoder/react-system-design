@@ -39,11 +39,14 @@ export const Game: React.FC = () => {
 
     const gameWinner: Player = useMemo(() => calculateWinnerCombination(), [cellArray]);
 
+    const isWinnerDeclared = (): boolean => {
+        return gameWinner !== null;
+    };
+
     const setNextPlayerTurn = useCallback((e: React.MouseEvent<HTMLDivElement>, cellId: string): void => {
-        if (gameWinner !== null) {
+        if (isWinnerDeclared()) {
             return;
         }
-
         const cellIdSplitter: string[] = cellId.split("-");
         const [row, column] = [parseInt(cellIdSplitter[0]), parseInt(cellIdSplitter[1])];
         const array: Player[][] = cellArray.map(row => [...row]);
